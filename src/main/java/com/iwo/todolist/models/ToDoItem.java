@@ -1,4 +1,4 @@
-package com.iwo.todolist;
+package com.iwo.todolist.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
