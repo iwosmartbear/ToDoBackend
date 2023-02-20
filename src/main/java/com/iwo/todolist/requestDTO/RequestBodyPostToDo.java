@@ -1,7 +1,9 @@
 package com.iwo.todolist.requestDTO;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,7 +15,8 @@ public class RequestBodyPostToDo {
 
     private String category;
 
-    private byte priority;
+    private Integer priority;
 
-    private Date dueDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
 }

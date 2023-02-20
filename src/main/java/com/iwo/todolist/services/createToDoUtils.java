@@ -4,6 +4,7 @@ import com.iwo.todolist.models.ToDoItem;
 import com.iwo.todolist.repositories.ToDoRepository;
 import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -19,8 +20,8 @@ public class createToDoUtils {
         item.setTaskContent(requestBodyPostToDo.getTaskContent());
         item.setCategory(requestBodyPostToDo.getCategory());
         item.setPriority(requestBodyPostToDo.getPriority());
-        item.setCreatedAt(new Date());
-        item.setIsOpen((byte) 1);
+        item.setCreatedAt(LocalDate.now());
+        item.setIsOpen(1);
         item.setDueDate(requestBodyPostToDo.getDueDate());
 
         return item;

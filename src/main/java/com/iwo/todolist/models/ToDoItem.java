@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -27,16 +28,16 @@ public class ToDoItem {
 
     private String category;
 
-    private byte priority;
+    private Integer priority;
 
-    private byte isOpen;
-
-    private Date createdAt;
-
-    private Date dueDate;
-
+    private Integer isOpen;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Nullable
-    private Date closedAt;
+    private LocalDate closedAt;
 
 
 
