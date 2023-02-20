@@ -18,8 +18,8 @@ import java.util.Date;
 @Entity
 public class ToDoItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String ownerId;
 
@@ -31,9 +31,12 @@ public class ToDoItem {
 
     private byte isOpen;
 
-//    private Date createdAt;
-//
-//    private Date dueDate;
+    private Date createdAt;
+
+    private Date dueDate;
+
+    @Nullable
+    private Date closedAt;
 
 
 

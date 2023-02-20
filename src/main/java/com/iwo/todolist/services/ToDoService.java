@@ -5,6 +5,7 @@ import com.iwo.todolist.repositories.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +34,14 @@ public class ToDoService implements ToDoServiceInterface{
     }
 
     public boolean createToDoItem() {
-        //@TODO create this method
-
         ToDoItem item = new ToDoItem();
+        item.setOwnerId("jaslkdja-asda-ad-asdasd");
+        item.setTaskContent("ContentOfTask: "+new Date().toString());
+        item.setCategory("All");
+        item.setPriority((byte) 1);
+        item.setCreatedAt(new Date());
+        item.setIsOpen((byte) 1);
+        item.setDueDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
 
         toDoRepository.save(item);
 
