@@ -4,10 +4,7 @@ import com.iwo.todolist.models.ToDoItem;
 import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 import com.iwo.todolist.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,11 @@ public class ToDoController {
     }
 
     //edit task
+    @PutMapping("/edit")
+    public boolean addNewToDo(@RequestBody ToDoItem[] toDoItem){
+
+        return toDoService.editToDoItem(toDoItem[0]);
+    }
 
     //get tasks between dates
 

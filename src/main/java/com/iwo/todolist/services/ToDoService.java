@@ -29,9 +29,10 @@ public class ToDoService implements ToDoServiceInterface{
         return "Object with json sent back to controller";
     }
 
-    public String editToDoItem() {
-        //@TODO create this method
-        return "Don't know what to send, but for sure it is going to be a success information";
+    public boolean editToDoItem(ToDoItem toDoItem) {
+        toDoRepository.save(toDoItem);
+
+        return true;
     }
 
     public boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo) {

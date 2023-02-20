@@ -11,7 +11,7 @@ public interface ToDoServiceInterface {
 
     String getOneToDoItem(String itemId);
 
-    String editToDoItem();
+    boolean editToDoItem(ToDoItem toDoItem);
 
     boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo);
 
