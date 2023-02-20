@@ -8,7 +8,7 @@ import java.util.Date;
 public class createToDoUtils {
     public static ToDoItem mapRequestDTOIntoToDoItem(RequestBodyPostToDo requestBodyPostToDo){
         ToDoItem item = new ToDoItem();
-        item.setOwnerId("jaslkdja-asda-ad-asdasd");
+        item.setOwnerId(requestBodyPostToDo.getOwnerId());
         item.setTaskContent(requestBodyPostToDo.getTaskContent());
         item.setCategory(requestBodyPostToDo.getCategory());
         item.setPriority(requestBodyPostToDo.getPriority());
