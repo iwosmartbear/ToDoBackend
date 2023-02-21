@@ -5,13 +5,12 @@ import com.iwo.todolist.repositories.ToDoRepository;
 import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
-public class createToDoUtils {
+public class toDoServiceUtils {
     public ToDoRepository toDoRepository;
 
-    public createToDoUtils(ToDoRepository toDoRepository) {
+    public toDoServiceUtils(ToDoRepository toDoRepository) {
         this.toDoRepository = toDoRepository;
     }
     public static ToDoItem mapRequestDTOIntoToDoItem(RequestBodyPostToDo requestBodyPostToDo){
@@ -26,11 +25,15 @@ public class createToDoUtils {
 
         return item;
     }
+    public static ToDoItem replaceAllFieldsInToDo(ToDoItem toDoItem, ToDoItem toDoItem2){
+        toDoItem.setTaskContent(toDoItem2.getTaskContent());
+        toDoItem.setCategory(toDoItem2.getCategory());
+        toDoItem.setPriority(toDoItem2.getPriority());
+        toDoItem.setCreatedAt(toDoItem2.getCreatedAt());
+        toDoItem.setIsOpen(toDoItem2.getIsOpen());
+        toDoItem.setDueDate(toDoItem2.getDueDate());
 
-    public Optional<ToDoItem> findToDoById(String id){
-        Optional<ToDoItem> foundItem = toDoRepository.findById(id);
-
-        return foundItem;
+        return toDoItem;
     }
 
 }
