@@ -36,6 +36,11 @@ public class ToDoController {
     //get tasks between dates
 
 
+    @DeleteMapping("/delete")
+    public boolean deleteToDoItem(@RequestBody ToDoItem[] toDoItem){
+
+        return toDoService.deleteToDoItem(toDoItem[0]);
+    }
 
 
 }
