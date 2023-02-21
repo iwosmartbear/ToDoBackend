@@ -5,7 +5,6 @@ import com.iwo.todolist.repositories.ToDoRepository;
 import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class toDoServiceUtils {
     public ToDoRepository toDoRepository;
@@ -20,7 +19,7 @@ public class toDoServiceUtils {
         item.setCategory(requestBodyPostToDo.getCategory());
         item.setPriority(requestBodyPostToDo.getPriority());
         item.setCreatedAt(LocalDate.now());
-        item.setIsOpen(1);
+        item.setIsOpen(requestBodyPostToDo.getIsOpen());
         item.setDueDate(requestBodyPostToDo.getDueDate());
 
         return item;
