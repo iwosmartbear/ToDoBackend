@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ToDoController {
 
     @Autowired
     ToDoService toDoService;
 
+
     @GetMapping("/all")
-    public List<ToDoItem> allToDos(){
-        return toDoService.getAllToDoItems();
+    public List<ToDoItem> allToDos(@RequestHeader String token){
+        return toDoService.getAllToDoItems(token);
     }
 
     @GetMapping("/dates")

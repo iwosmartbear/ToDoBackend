@@ -20,9 +20,9 @@ public class ToDoService implements ToDoServiceInterface{
         this.toDoRepository = toDoRepository;
     }
 
-    public List<ToDoItem> getAllToDoItems() {
+    public List<ToDoItem> getAllToDoItems(String ownerId) {
 
-        return toDoRepository.findAll();
+        return toDoRepository.findAllByOwnerId(ownerId);
     }
 
     public List<ToDoItem> getAllItemsBetweenGivenDates(LocalDate startDate, LocalDate endDate) {

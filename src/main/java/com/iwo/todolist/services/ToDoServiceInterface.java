@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ToDoServiceInterface {
-    List<ToDoItem> getAllToDoItems();
+    List<ToDoItem> getAllToDoItems(String ownerId);
 
     boolean editToDoItem(ToDoItem toDoItem);
 
