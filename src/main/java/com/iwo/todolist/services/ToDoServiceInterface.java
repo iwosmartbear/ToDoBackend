@@ -13,5 +13,5 @@ public interface ToDoServiceInterface {
 
     boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo);
 
-    List<ToDoItem> getAllItemsBetweenGivenDates(LocalDate startDate, LocalDate endDate);
+    List<ToDoItem> getAllItemsByOwnerIdAndBetweenGivenDates(String ownerId, LocalDate startDate, LocalDate endDate);
 }

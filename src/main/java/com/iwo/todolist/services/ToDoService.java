@@ -25,13 +25,13 @@ public class ToDoService implements ToDoServiceInterface{
         return toDoRepository.findAllByOwnerId(ownerId);
     }
 
-    public List<ToDoItem> getAllItemsBetweenGivenDates(LocalDate startDate, LocalDate endDate) {
+    public List<ToDoItem> getAllItemsByOwnerIdAndBetweenGivenDates(String ownerId, LocalDate startDate, LocalDate endDate) {
 
         if (endDate.isBefore(startDate)){
         throw new RuntimeException("Start Date should not be later than end Date.");
         }
 
-        List<ToDoItem> newList = toDoRepository.findAllByDueDateBetween(startDate, endDate);
+        List<ToDoItem> newList = toDoRepository.findAllByOwnerIdAndDueDateBetween(ownerId, startDate, endDate);
 
         return newList;
     }
@@ -44,6 +44,13 @@ public class ToDoService implements ToDoServiceInterface{
         return true;
     }
 
+    public boolean patchToDoItem(ToDoItem toDoItem) {
+        ToDoItem toDoFromDB = toDoRepository.getReferenceById(toDoItem.getId());
+        replaceAllFieldsInToDo(toDoFromDB, toDoItem);
+        toDoRepository.save(toDoFromDB);
+
+        return true;
+    }
     public boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo) {
         ToDoItem item = mapRequestDTOIntoToDoItem(requestBodyPostToDo);
         toDoRepository.save(item);

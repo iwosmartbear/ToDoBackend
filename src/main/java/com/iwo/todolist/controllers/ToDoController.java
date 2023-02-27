@@ -24,8 +24,11 @@ public class ToDoController {
     }
 
     @GetMapping("/dates")
-    public List<ToDoItem> getToDosWithDueDateBetweenGivenDates(@RequestParam LocalDate startDate, LocalDate endDate){
-        return toDoService.getAllItemsBetweenGivenDates(startDate, endDate);
+    public List<ToDoItem> getToDosWithDueDateBetweenGivenDates(
+            @RequestHeader String token,
+            @RequestParam LocalDate startDate, LocalDate endDate
+    ){
+        return toDoService.getAllItemsByOwnerIdAndBetweenGivenDates(token, startDate, endDate);
     }
 
     @PostMapping("/add")
@@ -35,7 +38,7 @@ public class ToDoController {
     }
 
     @PutMapping("/edit")
-    public boolean addNewToDo(@Validated @RequestBody ToDoItem toDoItem){
+    public boolean updateToDo(@Validated @RequestBody ToDoItem toDoItem){
 
         return toDoService.editToDoItem(toDoItem);
     }
