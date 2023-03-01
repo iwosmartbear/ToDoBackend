@@ -10,20 +10,25 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ToDoController {
 
     @Autowired
     ToDoService toDoService;
 
+
     @GetMapping("/all")
-    public List<ToDoItem> allToDos(){
-        return toDoService.getAllToDoItems();
+    public List<ToDoItem> allToDos(@RequestHeader String token){
+        return toDoService.getAllToDoItems(token);
     }
 
     @GetMapping("/dates")
-    public List<ToDoItem> getToDosWithDueDateBetweenGivenDates(@RequestParam LocalDate startDate, LocalDate endDate){
-        return toDoService.getAllItemsBetweenGivenDates(startDate, endDate);
+    public List<ToDoItem> getToDosWithDueDateBetweenGivenDates(
+            @RequestHeader String token,
+            @RequestParam LocalDate startDate, LocalDate endDate
+    ){
+        return toDoService.getAllItemsByOwnerIdAndBetweenGivenDates(token, startDate, endDate);
     }
 
     @PostMapping("/add")
@@ -33,7 +38,7 @@ public class ToDoController {
     }
 
     @PutMapping("/edit")
-    public boolean addNewToDo(@Validated @RequestBody ToDoItem toDoItem){
+    public boolean updateToDo(@Validated @RequestBody ToDoItem toDoItem){
 
         return toDoService.editToDoItem(toDoItem);
     }

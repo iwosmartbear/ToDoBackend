@@ -7,11 +7,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ToDoServiceInterface {
-    List<ToDoItem> getAllToDoItems();
+    List<ToDoItem> getAllToDoItems(String ownerId);
 
     boolean editToDoItem(ToDoItem toDoItem);
 
     boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo);
 
-    List<ToDoItem> getAllItemsBetweenGivenDates(LocalDate startDate, LocalDate endDate);
+    List<ToDoItem> getAllItemsByOwnerIdAndBetweenGivenDates(String ownerId, LocalDate startDate, LocalDate endDate);
 }
