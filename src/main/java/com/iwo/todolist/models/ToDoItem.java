@@ -19,6 +19,9 @@ public class ToDoItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @NotBlank(message = "Bad external Id")
+    @Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
+    private String extId;
     @NotBlank(message = "Bad User Id")
     @Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
     private String ownerId;
@@ -44,11 +47,11 @@ public class ToDoItem {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
+    @Nullable
     private LocalDate createdAt;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @FutureOrPresent
     private LocalDate dueDate;
 
     @Temporal(TemporalType.DATE)

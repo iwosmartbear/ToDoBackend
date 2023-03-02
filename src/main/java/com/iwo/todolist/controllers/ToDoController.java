@@ -1,7 +1,7 @@
 package com.iwo.todolist.controllers;
 
 import com.iwo.todolist.models.ToDoItem;
-import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
+import com.iwo.todolist.requestDTO.RequestBodyToDo;
 import com.iwo.todolist.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -32,21 +32,19 @@ public class ToDoController {
     }
 
     @PostMapping("/add")
-    public boolean addNewToDo(@Validated @RequestBody RequestBodyPostToDo requestBodyPostToDo){
-
-        return toDoService.createToDoItem(requestBodyPostToDo);
+    public boolean addNewToDo(@Validated @RequestBody RequestBodyToDo requestBodyToDo){
+        return toDoService.createToDoItem(requestBodyToDo);
     }
 
     @PutMapping("/edit")
-    public boolean updateToDo(@Validated @RequestBody ToDoItem toDoItem){
+    public boolean updateToDo(@Validated @RequestBody RequestBodyToDo requestBodyToDo){
 
-        return toDoService.editToDoItem(toDoItem);
+        return toDoService.editToDoItem(requestBodyToDo);
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteToDoItem(@Validated @RequestBody ToDoItem toDoItem){
-
-        return toDoService.deleteToDoItem(toDoItem);
+    public boolean deleteToDoItem(@Validated @RequestBody RequestBodyToDo requestBodyToDo){
+        return toDoService.deleteToDoItem(requestBodyToDo);
     }
 
 }

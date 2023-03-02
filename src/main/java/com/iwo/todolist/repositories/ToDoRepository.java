@@ -9,4 +9,7 @@ import java.util.List;
 public interface ToDoRepository extends JpaRepository<ToDoItem, String> {
     List<ToDoItem> findAllByOwnerIdAndDueDateBetween(String ownerId, LocalDate startDate, LocalDate endDate);
     List<ToDoItem> findAllByOwnerId(String ownerId);
+    ToDoItem findByExtId(String exId);
+    void deleteToDoItemByExtId(String ExtId);
+
 }

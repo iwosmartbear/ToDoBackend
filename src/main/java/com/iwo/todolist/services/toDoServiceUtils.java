@@ -2,7 +2,7 @@ package com.iwo.todolist.services;
 
 import com.iwo.todolist.models.ToDoItem;
 import com.iwo.todolist.repositories.ToDoRepository;
-import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
+import com.iwo.todolist.requestDTO.RequestBodyToDo;
 
 import java.time.LocalDate;
 
@@ -12,25 +12,25 @@ public class toDoServiceUtils {
     public toDoServiceUtils(ToDoRepository toDoRepository) {
         this.toDoRepository = toDoRepository;
     }
-    public static ToDoItem mapRequestDTOIntoToDoItem(RequestBodyPostToDo requestBodyPostToDo){
+    public static ToDoItem mapRequestDTOIntoToDoItem(RequestBodyToDo requestBodyToDo){
         ToDoItem item = new ToDoItem();
-        item.setOwnerId(requestBodyPostToDo.getOwnerId());
-        item.setTaskContent(requestBodyPostToDo.getTaskContent());
-        item.setCategory(requestBodyPostToDo.getCategory());
-        item.setPriority(requestBodyPostToDo.getPriority());
+        item.setExtId(requestBodyToDo.getExtId());
+        item.setOwnerId(requestBodyToDo.getOwnerId());
+        item.setTaskContent(requestBodyToDo.getTaskContent());
+        item.setCategory(requestBodyToDo.getCategory());
+        item.setPriority(requestBodyToDo.getPriority());
         item.setCreatedAt(LocalDate.now());
-        item.setIsOpen(requestBodyPostToDo.getIsOpen());
-        item.setDueDate(requestBodyPostToDo.getDueDate());
+        item.setIsOpen(requestBodyToDo.getIsOpen());
+        item.setDueDate(requestBodyToDo.getDueDate());
 
         return item;
     }
-    public static ToDoItem replaceAllFieldsInToDo(ToDoItem toDoItem, ToDoItem toDoItem2){
-        toDoItem.setTaskContent(toDoItem2.getTaskContent());
-        toDoItem.setCategory(toDoItem2.getCategory());
-        toDoItem.setPriority(toDoItem2.getPriority());
-        toDoItem.setCreatedAt(toDoItem2.getCreatedAt());
-        toDoItem.setIsOpen(toDoItem2.getIsOpen());
-        toDoItem.setDueDate(toDoItem2.getDueDate());
+    public static ToDoItem replaceAllFieldsInToDo(ToDoItem toDoItem, RequestBodyToDo requestBodyToDo){
+        toDoItem.setTaskContent(requestBodyToDo.getTaskContent());
+        toDoItem.setCategory(requestBodyToDo.getCategory());
+        toDoItem.setPriority(requestBodyToDo.getPriority());
+        toDoItem.setIsOpen(requestBodyToDo.getIsOpen());
+        toDoItem.setDueDate(requestBodyToDo.getDueDate());
 
         return toDoItem;
     }

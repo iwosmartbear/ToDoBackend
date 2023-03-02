@@ -1,7 +1,6 @@
 package com.iwo.todolist.requestDTO;
 
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,7 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Data
-public class RequestBodyPostToDo {
+public class RequestBodyToDo {
+    @Id
+    @Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
+    private String extId;
     @NotBlank(message = "Bad User Id")
     @Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
     private String ownerId;
@@ -35,6 +37,5 @@ public class RequestBodyPostToDo {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @FutureOrPresent
     private LocalDate dueDate;
 }

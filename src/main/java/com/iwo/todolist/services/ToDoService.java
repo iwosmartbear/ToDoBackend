@@ -2,7 +2,8 @@ package com.iwo.todolist.services;
 
 import com.iwo.todolist.models.ToDoItem;
 import com.iwo.todolist.repositories.ToDoRepository;
-import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
+import com.iwo.todolist.requestDTO.RequestBodyToDo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import static com.iwo.todolist.services.toDoServiceUtils.mapRequestDTOIntoToDoItem;
 import static com.iwo.todolist.services.toDoServiceUtils.replaceAllFieldsInToDo;
@@ -36,30 +37,24 @@ public class ToDoService implements ToDoServiceInterface{
         return newList;
     }
 
-    public boolean editToDoItem(ToDoItem toDoItem) {
-        ToDoItem toDoFromDB = toDoRepository.getReferenceById(toDoItem.getId());
-        replaceAllFieldsInToDo(toDoFromDB, toDoItem);
+    public boolean editToDoItem(RequestBodyToDo requestBodyToDo) {
+        ToDoItem toDoFromDB = toDoRepository.findByExtId(requestBodyToDo.getExtId());
+        replaceAllFieldsInToDo(toDoFromDB, requestBodyToDo);
         toDoRepository.save(toDoFromDB);
 
         return true;
     }
 
-    public boolean patchToDoItem(ToDoItem toDoItem) {
-        ToDoItem toDoFromDB = toDoRepository.getReferenceById(toDoItem.getId());
-        replaceAllFieldsInToDo(toDoFromDB, toDoItem);
-        toDoRepository.save(toDoFromDB);
-
-        return true;
-    }
-    public boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo) {
-        ToDoItem item = mapRequestDTOIntoToDoItem(requestBodyPostToDo);
+    public boolean createToDoItem(RequestBodyToDo requestBodyToDo) {
+        ToDoItem item = mapRequestDTOIntoToDoItem(requestBodyToDo);
         toDoRepository.save(item);
 
         return true;
     }
 
-    public boolean deleteToDoItem(ToDoItem toDoItem){
-        toDoRepository.delete(toDoItem);
+    @Transactional
+    public boolean deleteToDoItem(RequestBodyToDo requestBodyToDo){
+        toDoRepository.deleteToDoItemByExtId(requestBodyToDo.getExtId());
 
         return true;
     }
