@@ -2,11 +2,14 @@ package com.iwo.todolist.services;
 
 import com.iwo.todolist.models.ToDoItem;
 import com.iwo.todolist.repositories.ToDoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 import org.springframework.stereotype.Service;
+import static com.iwo.todolist.services.toDoServiceUtils.mapRequestDTOIntoToDoItem;
+import static com.iwo.todolist.services.toDoServiceUtils.replaceAllFieldsInToDo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+
 
 @Service
 public class ToDoService implements ToDoServiceInterface{
@@ -17,35 +20,50 @@ public class ToDoService implements ToDoServiceInterface{
         this.toDoRepository = toDoRepository;
     }
 
-    public List<ToDoItem> getAllToDoItems() {
+    public List<ToDoItem> getAllToDoItems(String ownerId) {
 
-        return toDoRepository.findAll();
+        return toDoRepository.findAllByOwnerId(ownerId);
     }
 
-    public String getOneToDoItem(String itemId) {
-        //@TODO create this method
-        return "Object with json sent back to controller";
+    public List<ToDoItem> getAllItemsByOwnerIdAndBetweenGivenDates(String ownerId, LocalDate startDate, LocalDate endDate) {
+
+        if (endDate.isBefore(startDate)){
+        throw new RuntimeException("Start Date should not be later than end Date.");
+        }
+
+        List<ToDoItem> newList = toDoRepository.findAllByOwnerIdAndDueDateBetween(ownerId, startDate, endDate);
+
+        return newList;
     }
 
-    public String editToDoItem() {
-        //@TODO create this method
-        return "Don't know what to send, but for sure it is going to be a success information";
+    public boolean editToDoItem(ToDoItem toDoItem) {
+        ToDoItem toDoFromDB = toDoRepository.getReferenceById(toDoItem.getId());
+        replaceAllFieldsInToDo(toDoFromDB, toDoItem);
+        toDoRepository.save(toDoFromDB);
+
+        return true;
     }
 
-    public boolean createToDoItem() {
-        //@TODO create this method
+    public boolean patchToDoItem(ToDoItem toDoItem) {
+        ToDoItem toDoFromDB = toDoRepository.getReferenceById(toDoItem.getId());
+        replaceAllFieldsInToDo(toDoFromDB, toDoItem);
+        toDoRepository.save(toDoFromDB);
 
-        ToDoItem item = new ToDoItem();
-
+        return true;
+    }
+    public boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo) {
+        ToDoItem item = mapRequestDTOIntoToDoItem(requestBodyPostToDo);
         toDoRepository.save(item);
 
         return true;
     }
 
-    public String getAllItemsBetweenGivenDates(Date startDate, Date endDate) {
-        //@TODO create this method
-        return "Don't know what to send, but for sure it is going to be a success information";
+    public boolean deleteToDoItem(ToDoItem toDoItem){
+        toDoRepository.delete(toDoItem);
+
+        return true;
     }
+
 
 
 }

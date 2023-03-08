@@ -1,18 +1,17 @@
 package com.iwo.todolist.services;
 
 import com.iwo.todolist.models.ToDoItem;
+import com.iwo.todolist.requestDTO.RequestBodyPostToDo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ToDoServiceInterface {
-    List<ToDoItem> getAllToDoItems();
+    List<ToDoItem> getAllToDoItems(String ownerId);
 
-    String getOneToDoItem(String itemId);
+    boolean editToDoItem(ToDoItem toDoItem);
 
-    String editToDoItem();
+    boolean createToDoItem(RequestBodyPostToDo requestBodyPostToDo);
 
-    boolean createToDoItem();
-
-    String getAllItemsBetweenGivenDates(Date startDate, Date endDate);
+    List<ToDoItem> getAllItemsByOwnerIdAndBetweenGivenDates(String ownerId, LocalDate startDate, LocalDate endDate);
 }
